@@ -7,7 +7,7 @@ import EnquiryList from './pages/allenquiries/EnquiryList';
 import AddEnquiry from './pages/allenquiries/AddEnquiry';
 import AmenityList from './pages/amenity/AmenityList';
 import AddAmenity from './pages/amenity/AmenityAdd';
-
+import Navbar from './components/Navbar';
 import PropertyList from './pages/property/PropertyList';
 import AddProperty from './pages/property/PropertyAdd';
 import PackageList from './pages/package/PackageList';
@@ -21,6 +21,7 @@ const App = () => {
     <Router>
       <div className="flex">
         <Sidebar />
+        <Navbar />
          <div className="ml-64 p-6 w-full">
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
