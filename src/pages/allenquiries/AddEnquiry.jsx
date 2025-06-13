@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaIdCard, FaCalendarAlt, FaHome, FaImage, FaDollarSign, FaAddressCard, FaCity, FaPhone, FaUser, FaBuilding, FaMapMarkerAlt, FaListAlt } from 'react-icons/fa';
 
 const AddEnquiry = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +23,7 @@ const AddEnquiry = () => {
     brokerContact: '',
     brokerAddress: '',
     brokerSubscription: '',
+    status: 'Pending',
   });
 
   const [errors, setErrors] = useState({});
@@ -58,7 +60,6 @@ const AddEnquiry = () => {
     e.preventDefault();
     if (validate()) {
       console.log('Form submitted:', formData);
-      // Add your form submission logic here
     } else {
       console.log('Form validation failed');
     }
@@ -66,15 +67,21 @@ const AddEnquiry = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Add Enquiry</h1>
+      <h1 className="text-2xl font-bold mb-6 flex items-center">
+        <FaListAlt className="mr-2" /> Add Enquiry
+      </h1>
       <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Inquiry Details Section */}
           <div className="border-b border-gray-200 pb-4 mb-4">
-            <h2 className="text-xl font-semibold mb-4">Inquiry Details</h2>
+            <h2 className="text-xl font-semibold mb-4 bg-yellow-200 p-2 rounded flex items-center">
+              <FaIdCard className="mr-2" /> Inquiry Details
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-700">Inquiry ID</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaIdCard className="mr-2" /> Inquiry ID
+                </label>
                 <input
                   name="inquiryId"
                   value={formData.inquiryId}
@@ -84,7 +91,9 @@ const AddEnquiry = () => {
                 {errors.inquiryId && <p className="text-red-500 text-xs">{errors.inquiryId}</p>}
               </div>
               <div>
-                <label className="block text-gray-700">Inquiry Date</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaCalendarAlt className="mr-2" /> Inquiry Date
+                </label>
                 <input
                   type="date"
                   name="inquiryDate"
@@ -99,10 +108,14 @@ const AddEnquiry = () => {
 
           {/* Property Details Section */}
           <div className="border-b border-gray-200 pb-4 mb-4">
-            <h2 className="text-xl font-semibold mb-4">Property Details</h2>
+            <h2 className="text-xl font-semibold mb-4 bg-yellow-200 p-2 rounded flex items-center">
+              <FaHome className="mr-2" /> Property Details
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-700">Property ID</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaIdCard className="mr-2" /> Property ID
+                </label>
                 <input
                   name="propertyId"
                   value={formData.propertyId}
@@ -112,16 +125,27 @@ const AddEnquiry = () => {
                 {errors.propertyId && <p className="text-red-500 text-xs">{errors.propertyId}</p>}
               </div>
               <div>
-                <label className="block text-gray-700">Property Image</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaImage className="mr-2" /> Property Image
+                </label>
                 <input
                   type="file"
                   name="propertyImage"
+                  id="propertyImage"
                   onChange={handleChange}
-                  className="w-full p-2 border rounded"
+                  className="hidden"
                 />
+                <label
+                  htmlFor="propertyImage"
+                  className="w-full p-2 bg-gray-300 text-gray-700 rounded cursor-pointer text-center"
+                >
+                  Choose Image
+                </label>
               </div>
               <div>
-                <label className="block text-gray-700">Property Name</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaHome className="mr-2" /> Property Name
+                </label>
                 <input
                   name="propertyName"
                   value={formData.propertyName}
@@ -131,7 +155,9 @@ const AddEnquiry = () => {
                 {errors.propertyName && <p className="text-red-500 text-xs">{errors.propertyName}</p>}
               </div>
               <div>
-                <label className="block text-gray-700">Property Type</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaBuilding className="mr-2" /> Property Type
+                </label>
                 <input
                   name="propertyType"
                   value={formData.propertyType}
@@ -140,7 +166,9 @@ const AddEnquiry = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700">Amenities</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaListAlt className="mr-2" /> Amenities
+                </label>
                 <input
                   name="amenities"
                   value={formData.amenities}
@@ -149,7 +177,9 @@ const AddEnquiry = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700">Price</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaDollarSign className="mr-2" /> Price
+                </label>
                 <input
                   name="price"
                   value={formData.price}
@@ -158,7 +188,9 @@ const AddEnquiry = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700">Property Address</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaMapMarkerAlt className="mr-2" /> Property Address
+                </label>
                 <input
                   name="propertyAddress"
                   value={formData.propertyAddress}
@@ -167,7 +199,9 @@ const AddEnquiry = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700">Address Line 1</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaAddressCard className="mr-2" /> Address Line 1
+                </label>
                 <input
                   name="addressLine1"
                   value={formData.addressLine1}
@@ -176,7 +210,9 @@ const AddEnquiry = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700">City</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaCity className="mr-2" /> City
+                </label>
                 <input
                   name="city"
                   value={formData.city}
@@ -185,7 +221,9 @@ const AddEnquiry = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700">Pincode</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaMapMarkerAlt className="mr-2" /> Pincode
+                </label>
                 <input
                   name="pincode"
                   value={formData.pincode}
@@ -196,12 +234,16 @@ const AddEnquiry = () => {
             </div>
           </div>
 
-          {/* Customer and Broker Details Section */}
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Customer and Broker Details</h2>
+          {/* Customer Details Section */}
+          <div className="border-b border-gray-200 pb-4 mb-4">
+            <h2 className="text-xl font-semibold mb-4 bg-yellow-200 p-2 rounded flex items-center">
+              <FaUser className="mr-2" /> Customer Details
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-700">Customer ID</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaIdCard className="mr-2" /> Customer ID
+                </label>
                 <input
                   name="customerId"
                   value={formData.customerId}
@@ -211,7 +253,9 @@ const AddEnquiry = () => {
                 {errors.customerId && <p className="text-red-500 text-xs">{errors.customerId}</p>}
               </div>
               <div>
-                <label className="block text-gray-700">Customer Name</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaUser className="mr-2" /> Customer Name
+                </label>
                 <input
                   name="customerName"
                   value={formData.customerName}
@@ -221,7 +265,9 @@ const AddEnquiry = () => {
                 {errors.customerName && <p className="text-red-500 text-xs">{errors.customerName}</p>}
               </div>
               <div>
-                <label className="block text-gray-700">Customer Contact</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaPhone className="mr-2" /> Customer Contact
+                </label>
                 <input
                   name="customerContact"
                   value={formData.customerContact}
@@ -230,8 +276,19 @@ const AddEnquiry = () => {
                 />
                 {errors.customerContact && <p className="text-red-500 text-xs">{errors.customerContact}</p>}
               </div>
+            </div>
+          </div>
+
+          {/* Broker Details Section */}
+          <div className="border-b border-gray-200 pb-4 mb-4">
+            <h2 className="text-xl font-semibold mb-4 bg-yellow-200 p-2 rounded flex items-center">
+              <FaBuilding className="mr-2" /> Broker Details
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-700">Broker ID</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaIdCard className="mr-2" /> Broker ID
+                </label>
                 <input
                   name="brokerId"
                   value={formData.brokerId}
@@ -240,7 +297,9 @@ const AddEnquiry = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700">Broker Name</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaUser className="mr-2" /> Broker Name
+                </label>
                 <input
                   name="brokerName"
                   value={formData.brokerName}
@@ -249,7 +308,9 @@ const AddEnquiry = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700">Broker Contact</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaPhone className="mr-2" /> Broker Contact Number
+                </label>
                 <input
                   name="brokerContact"
                   value={formData.brokerContact}
@@ -258,7 +319,9 @@ const AddEnquiry = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700">Broker Address</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaMapMarkerAlt className="mr-2" /> Broker Address
+                </label>
                 <input
                   name="brokerAddress"
                   value={formData.brokerAddress}
@@ -267,7 +330,9 @@ const AddEnquiry = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700">Broker Subscription Type</label>
+                <label className="block text-gray-700 flex items-center">
+                  <FaListAlt className="mr-2" /> Broker Subscription Type
+                </label>
                 <input
                   name="brokerSubscription"
                   value={formData.brokerSubscription}
@@ -278,13 +343,30 @@ const AddEnquiry = () => {
             </div>
           </div>
 
+          {/* Status Section */}
+          <div>
+            <label className="block text-gray-700 flex items-center">
+              <FaListAlt className="mr-2" /> Status
+            </label>
+            <select
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+            >
+              <option value="Pending">Pending</option>
+              <option value="Need to Call">Need to Call</option>
+              <option value="Sold">Sold</option>
+            </select>
+          </div>
+
           {/* Submit Button */}
           <div className="flex justify-end">
             <button
               type="submit"
-              className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+              className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 flex items-center"
             >
-              Submit Enquiry
+              <FaListAlt className="mr-2" /> Submit Enquiry
             </button>
           </div>
         </form>

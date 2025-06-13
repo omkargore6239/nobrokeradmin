@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaTrash } from 'react-icons/fa';
 
 const SubscriptionList = () => {
   // Sample data for subscriptions
@@ -115,10 +116,15 @@ const SubscriptionList = () => {
     }
   ];
 
+  const handleDelete = (id) => {
+    // Implement your delete logic here
+    console.log(`Delete subscription with id: ${id}`);
+  };
+
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Subscription List</h1>
+        <h1 className="text-2xl font-bold">Subscribers List</h1>
         <input type="text" placeholder="Search" className="border rounded p-2" />
       </div>
       <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
@@ -153,9 +159,10 @@ const SubscriptionList = () => {
                     {subscription.status}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <button className="text-blue-600 hover:underline mr-2">Edit</button>
-                  <button className="text-red-600 hover:underline">Delete</button>
+                <td className="px-6 py-4 whitespace-nowrap text-center">
+                  <button onClick={() => handleDelete(subscription.id)} className="text-red-600 hover:text-red-900">
+                    <FaTrash />
+                  </button>
                 </td>
               </tr>
             ))}

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaEdit, FaTrash, FaPlus, FaSearch } from 'react-icons/fa';
 
 const PackageList = () => {
-  // Sample data for packages
-  const packages = [
+  const [packages, setPackages] = useState([
     {
       id: 1,
       name: 'Premium',
@@ -29,100 +30,36 @@ const PackageList = () => {
       updatedDate: 'December 8, 2024 8:07 AM',
       status: 'Active'
     },
-    {
-      id: 3,
-      name: 'Advanced Listing Plan',
-      durationUnit: 'monthly',
-      duration: 1,
-      price: '$1999.00',
-      viewPropertyLimit: 50,
-      addPropertyLimit: 5,
-      advertisementLimit: 5,
-      createdDate: 'September 1, 2023 11:01 AM',
-      updatedDate: 'December 8, 2024 8:05 AM',
-      status: 'Active'
-    },
-    {
-      id: 4,
-      name: 'Golden',
-      durationUnit: 'yearly',
-      duration: 2,
-      price: '$360.00',
-      viewPropertyLimit: 2,
-      addPropertyLimit: 2,
-      advertisementLimit: 2,
-      createdDate: 'December 12, 2023 3:56 AM',
-      updatedDate: 'February 7, 2024 1:26 PM',
-      status: 'Inactive'
-    },
-    {
-      id: 5,
-      name: 'Elite Property Plan',
-      durationUnit: 'monthly',
-      duration: 1,
-      price: '$0.00',
-      viewPropertyLimit: 50,
-      addPropertyLimit: 3,
-      advertisementLimit: 1,
-      createdDate: 'February 7, 2024 1:28 PM',
-      updatedDate: 'March 29, 2025 7:16 AM',
-      status: 'Active'
-    },
-    {
-      id: 6,
-      name: 'test',
-      durationUnit: 'monthly',
-      duration: 1,
-      price: '$0.00',
-      viewPropertyLimit: 0,
-      addPropertyLimit: 0,
-      advertisementLimit: 0,
-      createdDate: 'September 13, 2024 3:53 PM',
-      updatedDate: 'December 8, 2024 6:38 AM',
-      status: 'Inactive'
-    },
-    {
-      id: 7,
-      name: 'Mamiti',
-      durationUnit: 'monthly',
-      duration: 3,
-      price: '$5000.00',
-      viewPropertyLimit: 30,
-      addPropertyLimit: 30,
-      advertisementLimit: 15,
-      createdDate: 'December 31, 2024 1:06 AM',
-      updatedDate: 'December 31, 2024 1:06 AM',
-      status: 'Active'
-    },
-    {
-      id: 8,
-      name: 'Vineet',
-      durationUnit: 'monthly',
-      duration: 1,
-      price: '$99.00',
-      viewPropertyLimit: 0,
-      addPropertyLimit: 1,
-      advertisementLimit: 0,
-      createdDate: 'January 30, 2025 12:29 PM',
-      updatedDate: 'January 30, 2025 12:29 PM',
-      status: 'Active'
-    }
-  ];
+    // Additional packages...
+  ]);
+
+  const navigate = useNavigate();
+
+  const handleEdit = (pkg) => {
+    navigate('/packages/add', { state: { package: pkg } });
+  };
+
+  const handleDelete = (id) => {
+    setPackages(packages.filter(pkg => pkg.id !== id));
+  };
 
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Package List</h1>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Add Package
+        <button onClick={() => navigate('/packages/add')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+          <FaPlus className="mr-2" /> Add Package
         </button>
       </div>
       <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
         <div className="flex justify-between items-center mb-4">
-          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-            Delete Selected
+          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded flex items-center">
+            <FaTrash className="mr-2" /> Delete Selected
           </button>
-          <input type="text" placeholder="Search" className="border rounded p-2" />
+          <div className="flex items-center border rounded p-2">
+            <FaSearch className="text-gray-400 mr-2" />
+            <input type="text" placeholder="Search" className="outline-none" />
+          </div>
         </div>
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -166,8 +103,12 @@ const PackageList = () => {
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <button className="text-blue-600 hover:underline mr-2">Edit</button>
-                  <button className="text-red-600 hover:underline">Delete</button>
+                  <button onClick={() => handleEdit(pkg)} className="text-blue-600 hover:underline mr-2 flex items-center">
+                    <FaEdit className="mr-1" /> Edit
+                  </button>
+                  <button onClick={() => handleDelete(pkg.id)} className="text-red-600 hover:underline flex items-center">
+                    <FaTrash className="mr-1" /> Delete
+                  </button>
                 </td>
               </tr>
             ))}

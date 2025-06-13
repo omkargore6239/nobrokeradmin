@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { FaArrowLeft, FaSave } from 'react-icons/fa';
 
 const PackageAdd = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +18,15 @@ const PackageAdd = () => {
     description: ''
   });
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.package) {
+      setFormData(location.state.package);
+    }
+  }, [location.state]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -28,14 +39,15 @@ const PackageAdd = () => {
     e.preventDefault();
     // Handle form submission logic here
     console.log('Form submitted:', formData);
+    navigate('/packages/list');
   };
 
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Add Package</h1>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow text-lg">
-          Back
+        <button onClick={() => navigate('/packages/list')} className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow text-lg flex items-center">
+          <FaArrowLeft className="mr-2" /> Back
         </button>
       </div>
       <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
@@ -238,9 +250,9 @@ const PackageAdd = () => {
           <div className="col-span-1 md:col-span-2 lg:col-span-3 flex justify-end">
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow text-lg"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow text-lg flex items-center"
             >
-              Save
+              <FaSave className="mr-2" /> Save
             </button>
           </div>
         </form>

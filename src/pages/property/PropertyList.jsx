@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaEdit, FaTrash, FaPlus, FaFilter, FaFileCsv, FaFileImport, FaFileExport, FaSearch, FaUndo } from 'react-icons/fa';
 
 const PropertyList = () => {
-  const properties = [
+  const [properties, setProperties] = useState([
     {
       id: 1,
+      name: 'Jhhh',
+      customer: 'Ahmed Said',
+      category: 'House',
+      bhk: '1 BHK',
+      price: '$36,360.00',
+      address: '6 Gorji St, Tarabulus, Li...',
+      premiumProperty: 'No',
+      status: 'Active',
+      createdDate: 'May 27, 2025 4:53 PM',
+      totalView: '1'
+    },
+    {
+      id: 2,
       name: 'Prop',
       customer: 'Ruchir Shah',
       category: 'Bungalow',
@@ -13,131 +28,55 @@ const PropertyList = () => {
       premiumProperty: 'No',
       status: 'Active',
       createdDate: 'May 19, 2025 8:45 AM',
-      totalView: '1'
-    },
-    {
-      id: 2,
-      name: 'Booking Flats',
-      customer: 'Donald Trump',
-      category: 'Agriculture Land',
-      bhk: '2 BHK',
-      price: '$500,000,000.00',
-      address: '8QVF+X7G Rajkot, Gujarat...',
-      premiumProperty: 'No',
-      status: 'Active',
-      createdDate: 'April 30, 2025 9:35 AM',
-      totalView: '4'
-    },
-    {
-      id: 3,
-      name: 'Marvel Villa',
-      customer: 'Hilda Blink',
-      category: 'House',
-      bhk: '3 BHK',
-      price: '$247,000,000.00',
-      address: '8QH5+MV4, Manharpura 1, M...',
-      premiumProperty: 'No',
-      status: 'Active',
-      createdDate: 'April 9, 2025 9:06 AM',
-      totalView: '7'
-    },
-    {
-      id: 4,
-      name: 'Golden Arm',
-      customer: 'Hilda Blink',
-      category: 'House',
-      bhk: '1 BHK',
-      price: '$250,000,000.00',
-      address: '8P7V+RCF Rajkot, Gujarat...',
-      premiumProperty: 'No',
-      status: 'Active',
-      createdDate: 'April 9, 2025 9:04 AM',
-      totalView: '1'
-    },
-    {
-      id: 5,
-      name: "McDonald's Farm",
-      customer: 'Hilda Blink',
-      category: 'House',
-      bhk: '1 BHK',
-      price: '$150,050,000.00',
-      address: '2, near madhuvan par, San...',
-      premiumProperty: 'No',
-      status: 'Active',
-      createdDate: 'April 9, 2025 9:01 AM',
-      totalView: '4'
-    },
-    {
-      id: 6,
-      name: 'Haritage Arcade',
-      customer: 'Admin user',
-      category: 'House',
-      bhk: '3 BHK',
-      price: '$320,000,000.00',
-      address: '7RW2+427, Trikon Baug, Pa...',
-      premiumProperty: 'No',
-      status: 'Active',
-      createdDate: 'April 9, 2025 5:04 AM',
       totalView: '2'
     },
-    {
-      id: 7,
-      name: 'Cosmo Prime',
-      customer: 'Admin user',
-      category: 'House',
-      bhk: '3 BHK',
-      price: '$540,000,000.00',
-      address: 'Hudco Quarters, A-246, Ko...',
-      premiumProperty: 'No',
-      status: 'Active',
-      createdDate: 'April 9, 2025 5:03 AM',
-      totalView: '2'
-    },
-    {
-      id: 8,
-      name: 'Vraj antica',
-      customer: 'Admin user',
-      category: 'House',
-      bhk: '3 BHK',
-      price: '$350,000,000.00',
-      address: '2, 80 Feet Rd, Patel Naga...',
-      premiumProperty: 'No',
-      status: 'Active',
-      createdDate: 'April 9, 2025 5:00 AM',
-      totalView: '0'
-    },
-    {
-      id: 9,
-      name: 'Siddhi marble',
-      customer: 'Admin user',
-      category: 'House',
-      bhk: '3 BHK',
-      price: '$500,000,000.00',
-      address: 'Amernatha Chowk, Katharoy...',
-      premiumProperty: 'No',
-      status: 'Active',
-      createdDate: 'April 9, 2025 4:58 AM',
-      totalView: '2'
-    }
-  ];
+    // Additional properties...
+  ]);
+
+  const navigate = useNavigate();
+
+  const handleEdit = (property) => {
+    navigate('/properties/add', { state: { property } });
+  };
+
+  const handleDelete = (id) => {
+    setProperties(properties.filter(property => property.id !== id));
+  };
 
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Property List</h1>
         <div className="flex space-x-2">
-          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Reset Filter</button>
-          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Filter</button>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download Property CSV</button>
-          <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Import Property</button>
-          <button className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">CSV</button>
-          <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Add Property</button>
+          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center">
+            <FaUndo className="mr-2" /> Reset Filter
+          </button>
+          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+            <FaFilter className="mr-2" /> Filter
+          </button>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+            <FaFileExport className="mr-2" /> Download Property CSV
+          </button>
+          <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex items-center">
+            <FaFileImport className="mr-2" /> Import Property
+          </button>
+          <button className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded flex items-center">
+            <FaFileCsv className="mr-2" /> CSV
+          </button>
+          <button onClick={() => navigate('/properties/add')} className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded flex items-center">
+            <FaPlus className="mr-2" /> Add Property
+          </button>
         </div>
       </div>
       <div className="bg-white p-4 rounded-lg shadow border border-gray-200 overflow-auto">
         <div className="flex justify-between items-center mb-4">
-          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Delete Selected</button>
-          <input type="text" placeholder="Search" className="border rounded p-2" />
+          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded flex items-center">
+            <FaTrash className="mr-2" /> Delete Selected
+          </button>
+          <div className="flex items-center border rounded p-2">
+            <FaSearch className="text-gray-400 mr-2" />
+            <input type="text" placeholder="Search" className="outline-none" />
+          </div>
         </div>
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -164,8 +103,12 @@ const PropertyList = () => {
                 <td className="px-4 py-2 whitespace-nowrap">{property.createdDate}</td>
                 <td className="px-4 py-2 whitespace-nowrap">{property.totalView}</td>
                 <td className="px-4 py-2 whitespace-nowrap">
-                  <button className="text-blue-600 hover:underline mr-2">View</button>
-                  <button className="text-red-600 hover:underline">Delete</button>
+                  <button onClick={() => handleEdit(property)} className="text-blue-600 hover:underline mr-2 flex items-center">
+                    <FaEdit className="mr-1" /> Edit
+                  </button>
+                  <button onClick={() => handleDelete(property.id)} className="text-red-600 hover:underline flex items-center">
+                    <FaTrash className="mr-1" /> Delete
+                  </button>
                 </td>
               </tr>
             ))}

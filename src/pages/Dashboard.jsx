@@ -1,13 +1,13 @@
+// src/pages/Dashboard.jsx
 import React from 'react';
-import { FaUser, FaHome, FaHandHoldingUsd, FaBuilding } from 'react-icons/fa';
+import { FaUser, FaHome, FaHandHoldingUsd, FaBuilding, FaEye } from 'react-icons/fa';
 
 const Dashboard = () => {
-  // Sample data for the dashboard
   const summaryData = [
-    { title: 'Total Customer', value: '268', icon: <FaUser />, color: 'bg-blue-100', textColor: 'text-blue-600' },
-    { title: 'Total Property', value: '88', icon: <FaHome />, color: 'bg-green-100', textColor: 'text-green-600' },
-    { title: 'Sell Property', value: '35', icon: <FaHandHoldingUsd />, color: 'bg-yellow-100', textColor: 'text-yellow-600' },
-    { title: 'Rent Property', value: '46', icon: <FaBuilding />, color: 'bg-purple-100', textColor: 'text-purple-600' },
+    { title: 'Total Customer', value: '268', icon: <FaUser />, color: 'bg-blue-50', iconColor: 'text-blue-600', borderColor: 'border-blue-200' },
+    { title: 'Total Property', value: '88', icon: <FaHome />, color: 'bg-green-50', iconColor: 'text-green-600', borderColor: 'border-green-200' },
+    { title: 'Sell Property', value: '35', icon: <FaHandHoldingUsd />, color: 'bg-yellow-50', iconColor: 'text-yellow-600', borderColor: 'border-yellow-200' },
+    { title: 'Rent Property', value: '46', icon: <FaBuilding />, color: 'bg-purple-50', iconColor: 'text-purple-600', borderColor: 'border-purple-200' },
   ];
 
   const propertyList = [
@@ -28,20 +28,25 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
+    <div className="p-6 space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
+        <div className="text-sm text-gray-500">
+          Welcome back, Admin
+        </div>
+      </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {summaryData.map((item, index) => (
-          <div key={index} className={`${item.color} p-4 rounded-lg shadow border border-gray-200`}>
-            <div className="flex items-center">
-              <div className={`mr-2 ${item.textColor} text-2xl`}>
-                {item.icon}
-              </div>
+          <div key={index} className={`${item.color} ${item.borderColor} border p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow`}>
+            <div className="flex items-center justify-between">
               <div>
-                <div className="text-lg font-semibold">{item.value}</div>
-                <div className="text-gray-600">{item.title}</div>
+                <p className="text-sm font-medium text-gray-600 mb-1">{item.title}</p>
+                <p className="text-3xl font-bold text-gray-800">{item.value}</p>
+              </div>
+              <div className={`${item.iconColor} text-3xl opacity-80`}>
+                {item.icon}
               </div>
             </div>
           </div>
@@ -49,93 +54,120 @@ const Dashboard = () => {
       </div>
 
       {/* Property List */}
-      <div className="bg-white p-4 rounded-lg shadow border border-gray-200 mb-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Property List</h2>
-          <button className="text-blue-500 hover:text-blue-700">View All</button>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+        <div className="flex justify-between items-center p-6 border-b border-gray-200">
+          <h2 className="text-xl font-semibold text-gray-800">Property List</h2>
+          <button className="text-blue-600 hover:text-blue-800 font-medium transition-colors">
+            View All
+          </button>
         </div>
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total View</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created Date</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {propertyList.map((property) => (
-              <tr key={property.id}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <img src={`https://via.placeholder.com/50?text=${property.name}`} alt={property.name} className="h-10 w-10 rounded" />
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">{property.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{property.customer}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{property.category}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{property.price}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{property.location}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{property.totalView}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{property.createdDate}</td>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Image</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Customer</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Category</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Price</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Location</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Views</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Created</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {propertyList.map((property) => (
+                <tr key={property.id} className="hover:bg-gray-50 transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <img
+                      src={`https://via.placeholder.com/60x40/4F46E5/FFFFFF?text=${property.name.charAt(0)}`}
+                      alt={property.name}
+                      className="h-10 w-12 rounded-lg object-cover border border-gray-200"
+                    />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="font-medium text-gray-900">{property.name}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-700">{property.customer}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      {property.category}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap font-semibold text-green-600">{property.price}</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{property.location}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center text-gray-500">
+                      <FaEye className="mr-1" />
+                      <span>{property.totalView}</span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{property.createdDate}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Customer List and News & Article List */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Customer List</h2>
-            <button className="text-blue-500 hover:text-blue-700">View All</button>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+          <div className="flex justify-between items-center p-6 border-b border-gray-200">
+            <h2 className="text-xl font-semibold text-gray-800">Customer List</h2>
+            <button className="text-blue-600 hover:text-blue-800 font-medium transition-colors">
+              View All
+            </button>
           </div>
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created Date</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {customerList.map((customer) => (
-                <tr key={customer.id}>
-                  <td className="px-6 py-4 whitespace-nowrap">{customer.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{customer.email}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{customer.createdDate}</td>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Email</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Created</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {customerList.map((customer) => (
+                  <tr key={customer.id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{customer.name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-gray-700">{customer.email}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{customer.createdDate}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">News & Article List</h2>
-            <button className="text-blue-500 hover:text-blue-700">View All</button>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+          <div className="flex justify-between items-center p-6 border-b border-gray-200">
+            <h2 className="text-xl font-semibold text-gray-800">News & Article List</h2>
+            <button className="text-blue-600 hover:text-blue-800 font-medium transition-colors">
+              View All
+            </button>
           </div>
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created Date</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {newsArticleList.map((article) => (
-                <tr key={article.id}>
-                  <td className="px-6 py-4 whitespace-nowrap">{article.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{article.description}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{article.createdDate}</td>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Description</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Created</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {newsArticleList.map((article) => (
+                  <tr key={article.id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{article.name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-gray-700">{article.description}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{article.createdDate}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

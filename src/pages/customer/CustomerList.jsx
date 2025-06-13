@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaTrash, FaFileCsv, FaSearch } from 'react-icons/fa';
 
 const CustomerList = () => {
   // Sample data for customers
-  const customers = [
+  const [customers, setCustomers] = useState([
     {
       id: 1,
       firstName: 'Said',
@@ -93,24 +94,63 @@ const CustomerList = () => {
       createdDate: 'September 20, 2024 5:54 PM',
       status: 'Active'
     }
-  ];
+  ]);
+
+  const [selectedCustomers, setSelectedCustomers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleDelete = (id) => {
+    setCustomers(customers.filter(customer => customer.id !== id));
+  };
+
+  const handleDeleteSelected = () => {
+    setCustomers(customers.filter(customer => !selectedCustomers.includes(customer.id)));
+    setSelectedCustomers([]);
+  };
+
+  const handleCheckboxChange = (id) => {
+    if (selectedCustomers.includes(id)) {
+      setSelectedCustomers(selectedCustomers.filter(customerId => customerId !== id));
+    } else {
+      setSelectedCustomers([...selectedCustomers, id]);
+    }
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredCustomers = customers.filter(customer =>
+    customer.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    customer.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    customer.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Customer List</h1>
         <div className="flex space-x-2">
-          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-            Delete Selected
+          <button onClick={handleDeleteSelected} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded flex items-center">
+            <FaTrash className="mr-2" /> Delete Selected
           </button>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            CSV
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+            <FaFileCsv className="mr-2" /> CSV
           </button>
         </div>
       </div>
       <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
         <div className="flex justify-between items-center mb-4">
-          <input type="text" placeholder="Search" className="border rounded p-2" />
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search"
+              className="border rounded p-2 pl-10"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+            <FaSearch className="absolute left-3 top-3 text-gray-400" />
+          </div>
         </div>
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -129,10 +169,14 @@ const CustomerList = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {customers.map((customer, index) => (
+            {filteredCustomers.map((customer, index) => (
               <tr key={customer.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={selectedCustomers.includes(customer.id)}
+                    onChange={() => handleCheckboxChange(customer.id)}
+                  />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{customer.firstName}</td>
@@ -145,9 +189,10 @@ const CustomerList = () => {
                     {customer.status}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <button className="text-blue-600 hover:underline mr-2">Edit</button>
-                  <button className="text-red-600 hover:underline">Delete</button>
+                <td className="px-6 py-4 whitespace-nowrap text-center">
+                  <button onClick={() => handleDelete(customer.id)} className="text-red-600 hover:text-red-900">
+                    <FaTrash />
+                  </button>
                 </td>
               </tr>
             ))}

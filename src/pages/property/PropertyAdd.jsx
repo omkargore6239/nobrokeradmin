@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { FaArrowLeft, FaSave } from 'react-icons/fa';
 
 const PropertyAdd = ({ onAddProperty }) => {
   const [formData, setFormData] = useState({
@@ -31,6 +33,15 @@ const PropertyAdd = ({ onAddProperty }) => {
     videoURL: '',
     amenities: []
   });
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.property) {
+      setFormData(location.state.property);
+    }
+  }, [location.state]);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -74,14 +85,15 @@ const PropertyAdd = ({ onAddProperty }) => {
       videoURL: '',
       amenities: []
     });
+    navigate('/properties/list');
   };
 
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Add Property</h1>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow text-lg">
-          Back
+        <button onClick={() => navigate('/properties/list')} className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow text-lg flex items-center">
+          <FaArrowLeft className="mr-2" /> Back
         </button>
       </div>
       <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
@@ -284,8 +296,8 @@ const PropertyAdd = ({ onAddProperty }) => {
           </div>
 
           <div className="col-span-1 md:col-span-2 lg:col-span-3 flex justify-end">
-            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow text-lg">
-              Save
+            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow text-lg flex items-center">
+              <FaSave className="mr-2" /> Save
             </button>
           </div>
         </form>
