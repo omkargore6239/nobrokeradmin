@@ -15,7 +15,8 @@ import {
   FaCog,
   FaUserCircle,
   FaChevronDown,
-  FaChevronRight
+  FaChevronRight,
+  FaCode 
 } from 'react-icons/fa';
 
 export const Navbar = () => {
@@ -141,7 +142,16 @@ export const Sidebar = () => {
       icon: <FaUsers />, 
       dropdown: 'customer',
       items: [
-        { name: 'List', icon: <FaList />, path: '/customers/list' }
+        { name: 'List', icon: <FaList />, path: '/customers/list' },
+      ]
+    },
+    {
+      name: 'Mastercode',
+      icon: <FaCode />,
+      dropdown: 'mastercode',
+      items: [
+        { name: 'List', icon: <FaList />, path: '/mastercodes/list' },
+        //{ name: 'Add', icon: <FaPlus />, path: '/mastercodes/add' }
       ]
     }
   ];

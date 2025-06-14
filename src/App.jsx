@@ -14,6 +14,8 @@ import PackageList from './pages/package/PackageList';
 import AddPackage from './pages/package/PackageAdd';
 import SubscriptionList from './pages/subscription/SubscriptionList';
 import CustomerList from './pages/customer/CustomerList';
+import MastercodeListPage from './pages/Mastercode/MastercodeListPage';
+import MastercodeFormPage from './pages/Mastercode/MastercodeFormPage';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -23,11 +25,12 @@ const App = () => {
       <Routes>
         <Route
           path="/login"
-          element={!isAuthenticated ? <Login onLogin={setIsAuthenticated} /> : <Navigate to="/dashboard" />}
+          //element={!isAuthenticated ? <Login onLogin={() => setIsAuthenticated(true)} /> : <Navigate to="/dashboard" />}
+          element={<Login onLogin={() => setIsAuthenticated(true)} />}
         />
         <Route
           path="/logout"
-          element={<Login onLogin={setIsAuthenticated} />}
+          element={<Login onLogin={() => setIsAuthenticated(false)} />}
         />
         <Route
           path="/*"
@@ -45,6 +48,9 @@ const App = () => {
                 <Route path="/packages/add" element={<AddPackage />} />
                 <Route path="/subscriptions/list" element={<SubscriptionList />} />
                 <Route path="/customers/list" element={<CustomerList />} />
+                <Route path="/mastercodes/list" element={<MastercodeListPage />} />
+                <Route path="/mastercodes/add" element={<MastercodeFormPage />} />
+                <Route path="/mastercodes/edit/:id" element={<MastercodeFormPage />} />
               </Routes>
             </Layout>
           ) : (

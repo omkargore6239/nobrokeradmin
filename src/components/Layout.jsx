@@ -1,21 +1,22 @@
 // src/components/Layout.jsx
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-  FaHome,
-  FaEnvelope,
-  FaList,
-  FaPlus,
-  FaBuilding,
-  FaGift,
-  FaCreditCard,
+import { 
+  FaHome, 
+  FaEnvelope, 
+  FaList, 
+  FaPlus, 
+  FaBuilding, 
+  FaGift, 
+  FaCreditCard, 
   FaUsers,
   FaSearch,
   FaBell,
   FaCog,
   FaUserCircle,
   FaChevronDown,
-  FaChevronRight
+  FaChevronRight,
+  FaCode 
 } from 'react-icons/fa';
 
 export const Navbar = () => {
@@ -34,7 +35,7 @@ export const Navbar = () => {
             <FaSearch className="absolute left-3 top-3 text-gray-400" />
           </div>
         </div>
-
+        
         <div className="flex items-center space-x-6">
           <button className="relative text-gray-600 hover:text-gray-900 transition-colors">
             <FaBell className="text-xl" />
@@ -42,13 +43,13 @@ export const Navbar = () => {
               3
             </span>
           </button>
-
+          
           <button className="text-gray-600 hover:text-gray-900 transition-colors">
             <FaCog className="text-xl" />
           </button>
-
+          
           <div className="relative">
-            <button
+            <button 
               className="flex items-center space-x-2 focus:outline-none hover:bg-gray-50 px-3 py-2 rounded-lg transition-colors"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
@@ -58,7 +59,7 @@ export const Navbar = () => {
               <span className="text-gray-700 font-medium">Admin</span>
               <FaChevronDown className={`text-gray-500 text-sm transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
-
+            
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-40 border border-gray-200">
                 <Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Profile</Link>
@@ -86,62 +87,71 @@ export const Sidebar = () => {
   const isDropdownActive = (items) => items.some(item => location.pathname === item.path);
 
   const menuItems = [
-    {
-      name: 'Dashboard',
-      icon: <FaHome />,
-      path: '/dashboard'
+    { 
+      name: 'Dashboard', 
+      icon: <FaHome />, 
+      path: '/dashboard' 
     },
-    {
-      name: 'All Enquiries',
-      icon: <FaEnvelope />,
+    { 
+      name: 'All Enquiries', 
+      icon: <FaEnvelope />, 
       dropdown: 'enquiry',
       items: [
         { name: 'List', icon: <FaList />, path: '/enquiries/list' },
         { name: 'Add', icon: <FaPlus />, path: '/enquiries/add' }
       ]
     },
-    {
-      name: 'Amenity',
-      icon: <FaList />,
+    { 
+      name: 'Amenity', 
+      icon: <FaList />, 
       dropdown: 'amenity',
       items: [
         { name: 'List', icon: <FaList />, path: '/amenities/list' },
         { name: 'Add', icon: <FaPlus />, path: '/amenities/add' }
       ]
     },
-    {
-      name: 'Property',
-      icon: <FaBuilding />,
+    { 
+      name: 'Property', 
+      icon: <FaBuilding />, 
       dropdown: 'property',
       items: [
         { name: 'List', icon: <FaList />, path: '/properties/list' },
         { name: 'Add', icon: <FaPlus />, path: '/properties/add' }
       ]
     },
-    {
-      name: 'Package',
-      icon: <FaGift />,
+    { 
+      name: 'Package', 
+      icon: <FaGift />, 
       dropdown: 'package',
       items: [
         { name: 'List', icon: <FaList />, path: '/packages/list' },
         { name: 'Add', icon: <FaPlus />, path: '/packages/add' }
       ]
     },
-    {
-      name: 'Subscribers',
-      icon: <FaCreditCard />,
-      dropdown: 'subscribers',
+    { 
+      name: 'Subscription', 
+      icon: <FaCreditCard />, 
+      dropdown: 'subscription',
       items: [
         { name: 'List', icon: <FaList />, path: '/subscriptions/list' },
-        // { name: 'Add', icon: <FaPlus />, path: '/subscriptions/add' }
+        { name: 'Add', icon: <FaPlus />, path: '/subscriptions/add' }
+      ]
+    },
+    { 
+      name: 'Customer', 
+      icon: <FaUsers />, 
+      dropdown: 'customer',
+      items: [
+        { name: 'List', icon: <FaList />, path: '/customers/list' },
       ]
     },
     {
-      name: 'Customer',
-      icon: <FaUsers />,
-      dropdown: 'customer',
+      name: 'Mastercode',
+      icon: <FaCode />,
+      dropdown: 'mastercode',
       items: [
-        { name: 'List', icon: <FaList />, path: '/customers/list' }
+        { name: 'List', icon: <FaList />, path: '/mastercodes/list' },
+        //{ name: 'Add', icon: <FaPlus />, path: '/mastercodes/add' }
       ]
     }
   ];
@@ -155,16 +165,16 @@ export const Sidebar = () => {
           <br />
           <span className="text-blue-400 text-sm block">ADMIN</span>
         </h1>
-
+        
         <ul className="space-y-1">
           {menuItems.map((item) => (
             <li key={item.name}>
               {item.path ? (
-                <Link
-                  to={item.path}
+                <Link 
+                  to={item.path} 
                   className={`flex items-center px-4 py-3 rounded-lg transition-colors ${
-                    isActive(item.path)
-                      ? 'bg-blue-600 text-white'
+                    isActive(item.path) 
+                      ? 'bg-blue-600 text-white' 
                       : 'text-gray-300 hover:bg-gray-700 hover:text-white'
                   }`}
                 >
@@ -175,8 +185,8 @@ export const Sidebar = () => {
                 <>
                   <div
                     className={`flex justify-between items-center px-4 py-3 rounded-lg cursor-pointer transition-colors ${
-                      isDropdownActive(item.items)
-                        ? 'bg-blue-600 text-white'
+                      isDropdownActive(item.items) 
+                        ? 'bg-blue-600 text-white' 
                         : 'text-gray-300 hover:bg-gray-700 hover:text-white'
                     }`}
                     onClick={() => toggleDropdown(item.dropdown)}
@@ -189,13 +199,13 @@ export const Sidebar = () => {
                       {openDropdown === item.dropdown ? <FaChevronDown /> : <FaChevronRight />}
                     </span>
                   </div>
-
+                  
                   {openDropdown === item.dropdown && (
                     <ul className="ml-6 mt-2 space-y-1 border-l border-gray-600 pl-4">
                       {item.items.map((subItem) => (
                         <li key={subItem.name}>
-                          <Link
-                            to={subItem.path}
+                          <Link 
+                            to={subItem.path} 
                             className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
                               isActive(subItem.path)
                                 ? 'bg-blue-500 text-white'
@@ -225,8 +235,12 @@ const Layout = ({ children }) => {
       <Sidebar />
       <div className="flex-1 flex flex-col">
         <Navbar />
-        <main className="flex-1 ml-64 mt-16 p-6 overflow-y-auto">
-          {children}
+        <main className="flex-1 ml-64 mt-16 overflow-y-auto">
+          <div className="p-6 min-h-full">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 min-h-full">
+              {children}
+            </div>
+          </div>
         </main>
       </div>
     </div>
